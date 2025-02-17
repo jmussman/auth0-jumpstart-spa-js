@@ -1,0 +1,32 @@
+{
+    "name": "Auth0 Vanilla JavaScript SPA Jumpstart",
+    "build": {
+        "dockerfile": "Dockerfile"
+    },
+    "customizations": {
+        "vscode": {
+            "extensions": [
+                "ms-azuretools.vscode-docker",
+                "ms-vsliveshare.vsliveshare",
+                "vsls-contrib.codetour"
+            ]
+        }
+    },
+    "forwardPorts": [
+        35500,
+        38500
+    ],
+    "portsAttributes": {
+        "35500": {
+            "label": "jumpstart-api",
+            "onAutoForward": "notify"
+        },
+        "38500": {
+            "label": "my application",
+            "onAutoForward": "notify"
+        }
+    },
+
+    "postCreateCommand": "npm install",
+    "postAttachCommand": "if test -n \"$CODESPACE_NAME\"; then gh codespace ports visibility 35500:public 38500:public -c \"$CODESPACE_NAME\"; fi"
+}

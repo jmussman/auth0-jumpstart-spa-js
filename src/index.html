@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<!-- index.html
+    Copyright © 2025 Okta Inc. All rights reserved.
+
+    This software is released under the MIT license: https://opensource.org/licenses/MIT.
+-->
+<html>
+    <head>
+        <title>Auth0 Jumpstart</title>
+        <link rel="stylesheet" type="text/css" href="assets/style/main.css" />
+        <link id="favicon" rel="shortcut icon mask-icon" href="https://cdn.auth0.com/quantum-assets/dist/latest/favicons/auth0-favicon-onlight.png"/>
+        <script type="module" src="assets/script/main.js"></script>
+    </head>
+    <body>
+        <header>
+            <div class="header">
+                <div class="banner">
+                    <div class="logo"><img alt="Logo" src="assets/images/auth0-logo.svg" /></div>
+                    <div class="title"><span>Vanilla JavaScript SPA Jumpstart</span></div>    
+                </div>
+                <div class="avatar"><img id="avatar" alt="Avatar" /></div>
+            </div>
+        </header>
+
+        <div class="main">
+            <div class="content">
+                <div id="authentication">
+                    <h1>Welcome to my app<span id="name"></span>!</h1>
+                    <button id="login">Login</button>
+                    <button id="logout">Logout</button>   
+                </div>
+                <div class="token">
+                    <div class="token-background1"></div>
+                    <div id="id-token" class="token-content">
+                        <h2>ID Token and Claims</h2>
+                        <div class="token-scroll">
+                            <pre id="id-token-claims"></pre>
+                        </div>
+                    </div>
+                </div>
+                <div class="token">
+                    <div class="token-background2"></div>
+                    <div id="access-token" class="token-content">
+                        <h2>Decoded Access Token returned from API</h2>
+                        <div class="token-scroll">
+                            <pre id="access-token-claims"></pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>    
+
+        <footer>
+            <div class="footer">
+                <span class="footer">&copy; 2025 Okta, Inc. All rights reserved.</span>
+            </div>    
+        </footer>
+    </body>
+</html>

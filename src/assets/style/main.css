@@ -1,0 +1,175 @@
+/* main.css
+** Copyright © 2025 Okta, Inc. All rights reserved.
+**
+** This software is released under the MIT license: https://opensource.org/licenses/MIT.
+*/
+
+body {
+    margin: 0;
+    padding: 0;
+    background-color: black;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+div.header {
+    position: relative;
+    height: 150px;
+    width: 100vw;
+    padding: 0;
+    margin: 0;
+    background-color: black;
+}
+
+div.banner {
+    float: left;
+    height: 150px;
+}
+
+div.logo {
+    height: 40px;
+    padding: 20px;
+}
+
+div.title {
+    height: 90px;
+    padding-left: 20px;
+    text-align: left;
+    color: white;
+    font-size: 36pt;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+div.avatar {
+    float: right;
+    height: 150px;
+}
+
+img#avatar {
+    display: none;
+    border-radius: 50%;
+    width: 100px;
+    height: 100px;
+    margin: 25px 20px 25px 10px;
+}
+
+div.main {
+    margin: 0;
+    padding: 0;
+    min-height: calc(100vh - 325px);
+    vertical-align: bottom;
+}
+
+div.content {
+    width: calc(100vw - 40px);
+    min-height: calc(100vh - 250px);
+    margin: 0;
+    padding: 20px;
+    background-color: black;
+}
+
+div#authentication {
+    padding: 20px;
+    border-radius: 20px;
+    background-image: url(../images/authentication-background.jpg);
+    color: white;
+}
+
+div#authentication h1 {
+    margin: 0 0 20px 0;
+}
+
+div#authentication button {
+    padding: 5px 10px;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-size: 12pt;
+    background-color: navy;
+    border-radius: 5px;
+    color: white;
+}
+
+button#login {
+    display: inline;
+}
+
+button#logout {
+    display: none;
+}
+
+div.token {
+    position: relative;
+    z-index: 1;
+    min-height: 250px;
+    margin: 20px 0 20px 0;
+    padding: 20px;
+    border-radius: 20px;
+    background-image: url(../images/div-background.png);
+    border-radius: 20px;
+    color: white;
+}
+
+div.token div.token-background1 {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    height: 350px;
+    width: 500px;
+    background-image: url(../images/token-background1.svg);
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position-x: right;
+    z-index: 0;
+    opacity: 70%;
+}
+
+div.token div.token-background2 {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    height: 250px;
+    width: 500px;
+    background-image: url(../images/token-background2.svg);
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position-x: right;
+    opacity: 70%;
+}
+
+div.token div.token-content {
+    position: relative;
+    display: none;
+    z-index: 2;
+}
+
+div.token div.token-content h2 {
+    margin-bottom: 0px;
+}
+
+div.token-scroll {
+    position: relative;
+    z-index: 2;
+    padding: 0;
+    margin: 5px 0 5px 0;
+    overflow-x: scroll;
+    color: white;
+}
+
+div.footer {
+    width: 100vw;
+    margin: 10px 0 10px 0;
+    padding: 0;
+    text-align: center;
+    vertical-align: middle;
+}
+
+div.footer > span.footer {
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-size: 10t;
+    font-weight: normal;
+    color: lightgray 
+}
+
+a:-webkit-any-link {            /* This is the final override */
+    text-decoration: none;
+    color: black;
+}
