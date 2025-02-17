@@ -20,27 +20,27 @@ function toggleAvatar(isAuthenticated, userProfile) {
     document.getElementById("avatar").src = userProfile?.picture;
 }
 
-function toggleNameIsAuthenticated(isAuthenticated, userProfile) {
+function toggleName(isAuthenticated, userProfile) {
     document.getElementById("name").innerText = isAuthenticated ? ' ' + userProfile.name : '';
 }
 
-function toggleProfileIsAuthenticated(isAuthenticated, userProfile, claims) {
+function toggleProfile(isAuthenticated, userProfile, claims) {
     document.getElementById("id-token").style.display = isAuthenticated ? "block" : "none";
     document.getElementById("id-token-claims").innerText = JSON.stringify(claims, null, 4);
 }
 
-function toggleAPIMessageIsAuthenticated(isAuthenticated, apiMessage) {
+function toggleAPIMessage(isAuthenticated, apiMessage) {
     document.getElementById("access-token").style.display = isAuthenticated ? "block" : "none";
-    document.getElementById("access-token-claims").innerText = apiMessage;
+    document.getElementById("access-token-claims").innerText = apiMessage ?? '';
 }
 
 function toggleIsAuthenticated(isAuthenticated, userProfile, claims, apiMessage) {
     toggleLoginButton(isAuthenticated);
     toggleLogoutButton(isAuthenticated);
     toggleAvatar(isAuthenticated, userProfile);
-    toggleNameIsAuthenticated(isAuthenticated, userProfile);
-    toggleProfileIsAuthenticated(isAuthenticated, userProfile, claims);
-    toggleAPIMessageIsAuthenticated(isAuthenticated, apiMessage);
+    toggleName(isAuthenticated, userProfile);
+    toggleProfile(isAuthenticated, userProfile, claims);
+    toggleAPIMessage(isAuthenticated, apiMessage);
 }
 
 async function initiateAPIRequest(jumpstartAPIAccessToken) {
