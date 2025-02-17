@@ -38,6 +38,7 @@ If you want to save your work with a Git push then fork this repository into you
 
 * NodeJS (tested with v22.14.0 LTS)
 * Visual Studio Code
+* Web Browser
 
 #### Instructions
 
@@ -46,7 +47,7 @@ account and clone that repo.
 
 1. Open the local repository folder in Visual Studio Code (or your IDE of choice).
 1. Open a terminal window and install the NodeJS dependencies.
-$ stands in for the command prompt:
+\$ stands in for the command prompt:
     ```
     $ npm install
     ```
@@ -65,6 +66,7 @@ launch a new container or reconnect to a running container.
 
 * Visual Studio Code
 * Docker Desktop
+* Web Browser
 
 #### Instructions
 
@@ -87,7 +89,7 @@ GitHub account and use that.
 
 #### Requirements
 
-* Browser
+* Web Browser
 
 #### Instructions
 
@@ -110,26 +112,23 @@ These URLs will be how to reach the API and application from outside the codespa
 
 ### In all environments
 
-1. Two ways to launch the application:
-    1. Open the Run-Debug panel by clicking on the icon in the toolbar,
-        then selecting the "Launch SPA and API" launch configuration and clicking
-        the green run arrow to the left of the launch configuration:
+1. Open the Run-Debug panel by clicking on the icon in the toolbar.
+        Then select the "Launch SPA and API" launch configuration from the dropdown list at the top.
 
-        ![Run-Debug](./.assets/run-debug.png)
+    ![Run-Debug](./.assets/run-debug.png)
 
-    1. Launch the SPA and API rom the command line:
-        ```
-        $ npm run dev
-        ```
-1. In the output window ("Debug" for run-debug and "Terminal" if you run it from
-the command line)there will be two URLs displayed, the first is for the API and the
-second is for the application.
+1. Click the green *run arrow* to the left of the launch configuration dropdown list.
+1. In the Debug tab of the bottom VSCode panel you will see the output from launching the application.
+There will be two URLs displayed, the first is for the API and the second is for the application.
+Technically they are displayed twice because the *Parcel* utility
+sees a file change during launch and then relaunches the application.
 Hold down the ctrl/cmd key and click on the URL (ctrl/cmd+click)
 to open the application in your default browser:
 
     ![Launch URLs](./.assets/launch-urls.png)
 
-1. If you are running in a GitHub codespace the URL will be flagged as suspicious.
+1. If you are running in a GitHub codespace the URL will be flagged as a suspicious
+    link to another user's codespace, but it is really your own.
     It is ok to proceed to the application.
 
 1. The default landing page for the application looks like this:
@@ -164,9 +163,15 @@ with a few changes that are best practices for application development.
 
 1. Click the exapanding area labeled *Customization Options*.
 1. Under the *Styles* section at the left select the option for *Widget*.
-1. Under the *Widget* selection on the right set the logo URL to "https://raw.githubusercontent.com/jmussman/cdn-fun/main/images/auth0-logo.png".
+1. Under the *Widget* selection on the right set the logo URL to:
+    ```
+    https://raw.githubusercontent.com/jmussman/cdn-fun/main/images/auth0-logo.png
+    ```
 1. Under the *Styles* section select *Page Background*.
-1. Under the *Page Background* section on the right set the *Background image url* to "https://raw.githubusercontent.com/jmussman/cdn-fun/main/images/auth0-jumpstart-background.jpg".
+1. Under the *Page Background* section on the right set the *Background image url* to:
+    ```
+    https://raw.githubusercontent.com/jmussman/cdn-fun/main/images/auth0-jumpstart-background.jpg
+    ```
 1. Above this field look for *Page Layout* and click the icon to place the login at the right of the page.
 1. In the left-menu of the tenant dashboard select *Applications &rarr; APIs*.
 1. Click the *+ Create API* button.
@@ -178,15 +183,17 @@ with a few changes that are best practices for application development.
 1. Leave the name as "My App", select the *Single Page Web Applications* type, and click the *Create* button.
 1. On the application pages click on the *Settings* tab.
 1. Scroll down to the *Application URIs* section.
-1. Paste the application URL (which you saved in the first part) into the *Allowed Callback URLs* and *Allowed Logout URLs* fields.
-    If you cannot find the URL, open the *Ports* panel in the lower VSCode pane and copy the URL for port 38500.
+1. Paste the application URL (which you saved in the first part) into the *Allowed Callback URLs*, *Allowed Logout URLs*,
+    and *Allowed Web Origins* fields.
+    If you cannot find the URL, open the *Ports* tab in the bottom VSCode panel and copy the URL for given for port 38500.
 1. Click the *Save Changes* button at the lower right.
 
 ### Configure the application and the Auth0 application configuration
 
-1. Back in VSCode, in the *Explorer* window, expand the folder *src/assets/script*.
+1. Back in VSCode click the *Explorer* button ![Explorer](./.assets/explorer.png)
 
-1. Click on and open the *main.js* file.
+1. In the folders tree expand the folder *src/assets/script*.
+1. Double-click *main.js* to open and edit the file.
 1. Locate the *window.addEventListener('load', async () => {* function call at the end of the file (it is the last piece of code).
 1. After this line paste in the code from the quickstart.
     Here is a copy:
@@ -243,12 +250,18 @@ with a few changes that are best practices for application development.
     ```
     toggleIsAuthenticated(isAuthenticated, userProfile, claims);
     ```
-1. The quickstart assumes specific HTML elements in the application, this replaces that with a call
-    to a function that will manage the local HTML.
+1. The quickstart assumes specific HTML elements in the application that will be turned on after
+    authentication. This replaces that with a call to a function that will manage the local HTML,
+    revealing and hiding elements as the user authenticates and then logs out.
+1. Just above this line, and directly below the line *const userProfile = await auth0Client.getUser();* add a line
+    to retrieve the ID token "claims", the user information the tenant provides to the application:
+    ```
+    const claims = await auth0Client.getIdTokenClaims();
+    ```
 1. The other best-practice not followed in this code is externalizing the domain and client id.
     Change the value of the *domain* property at the top of the function to read *process.env.AUTH0_DOMAIN*.
 1. Change the value of the *clientID* property to read *process.env.AUTH0_CLIENT_ID*.
-1. Edit the *.env* file in the top project folder.
+1. Edit the *.env* file in the project folder (the top of the tree).
     ```
     AUTH0_DOMAIN=
     AUTH0_CLIENT_ID=
@@ -257,26 +270,32 @@ with a few changes that are best practices for application development.
     API_AUDIENCE=https://profile
     API_URL=
     ```
-1. Back in the application settings in the tenant dashboard (you should still be there), copy the
-    *Domain* and make it the value of the *AUTH0_DOMAIN* variable.
+1. Go back to the tenant and in the application settings (you should still be there), copy the
+    *Domain* and make it the value of the *AUTH0_DOMAIN* variable in .env.
 1. From the tenant copy the *Client ID* and paste it as the value of *AUTH0_CLIENT_ID* variable.
 1. Externalizing the values is important, because at different points in the devops cycle (development, continuous integration, deployment)
     different Auth0 tenants will be utilized and this prevents changing the application code.
-1. Save the pages.
-    The application should reload the web page automatically; if you had stopped it restart it now.
+1. Save the open files.
+    The *Parcel* utility should reload the web page automatically; if you had stopped the application it restart it now and open the page in the browser.
 1. In the application click the *Login* button.
-1. Either register a new user or use a Google identity to sign-on.
-1. If you are developing on your local computer you will need to consent to your information being shared with *My App*.
+1. Register a new user by clicking the sign up link and providing an email address and password.
+    *Important: it does NOT need to be a real email address, you can make anything up!*
+1. If you are developing on your local computer you will need to consent to the information for this user to be shared with *My App*.
     This is because Auth0 assumes any application running at http://localhost could potentially be malware and wants to
     protect regular users.
-    Developers know their application is running at this address, so the consent is expected and allowed.
+    Developers know their application is running at this address, so the consent request is expected.
 1. Investigate the *claims* provided to the application in the ID token.
     If the login has an avatar at https://gravatar.org it will show up on the header bar.
 
     ![Authenticated User](./.assets/authenticated-user-page.png)
 
+1. If you desire, you may logout and test the application using a Google account to show that Auth0 proxies (and normalizes) the
+    identity information received from Google.
 1. Click the logout button.
-1. Stop the application: click red square in the Run-Debug palette or use ctrl-C if you launched from the command line.
+1. Stop the application.
+    Find the floating toolbar for run-debug and click red square:
+
+    ![Run Debug Stop](./.assets/run-debug-stop.png)
 
 ### Leverage the access token for API authorization
 
@@ -286,36 +305,45 @@ with a few changes that are best practices for application development.
 1. Find the user that you logged in with, and click the name to go to the settings.
 1. Click the *Permssions* tab.
 1. Click the *Assign Permission* button.
-1. In the dialog select the *Jumpstart API*.
+1. In the dialog with the API dropdown list select the *Jumpstart API*.
 1. In the *Permissions* list pick the *token:read* permission, then click the *Add Permission* button.
 1. Back in the code find the *authorizationParams* property under the *CreateAuth0Client* function call.
-1. Add a new property *Audience* with a value *process.env.API_AUDIENCE*; this will specify which API an access token is requested for.
-1. Add *offline_access token:read* to the *scopes* property value (leave the existing scopes intact).
-    *offline_access* requests a refresh token, and *token:read* is the required authorization for the API to work.
+1. In authorizationParams add a new property *Audience* property, this tells the tenant which API to provide an access token for:
+    ```
+        authorizationParams: {
+            audience: process.env.API_AUDIENCE
+    ```
+1. Immediately below that add a new *scope* property to request "grants" that give the application resources or permissions:
+    ```
+            scope: "openid profile email offline_access token:read"
+    ```
+1. The default *scope* which was used to start with requests "openid profile email", which requests an ID token, the basic user profile information, and the user email address.
+    We added "offline_access" to include refresh tokens, and "token:read" so the API will provide the deciphered token claims.
 1. Find the line near the end of the code: *const claims = await auth0Client.getIdTokenClaims();*.
 1. After that line add a new line to make the API request and get the message:
     ```
-    const apiMessage = isAuthenticated ? retrieveJumpstartAPIMessage(auth0Client) : null;
+    const apiMessage = isAuthenticated ? await retrieveJumpstartAPIMessage(auth0Client) : null;
     ```
 1. Below that find the line we added earlier: *toggleIsAuthenticated(isAuthenticated, userProfile, claims);*.
-1. Add the message as the fourth argument:
+1. Add the message as a fourth argument:
     ```
     toggleIsAuthenticated(isAuthenticated, userProfile, claims, apiMessage);
     ```
-1. The application and API should reload.
-    Log in to the application again.
-    This time the access token was used to authorize a request to the API.
-    If the user has the *token:read* permission, the API returns a decoded version of the token for display.
+1. Use the run-debug panel to launch the application again.
+    Visit the page and sign on as the user.
+    Now the access token is used to authorize a request to the API.
+    If the user has the *token:read* permission, the API returns a decoded version of the token for display:
 
     ![Authorized User](./.assets/authorized-user-page.png)
 
 1. Logout and stop the application.
 
-### Clean up the code
+### Clean up the code (optional)
 
 The remaining problem is the code from the quickstart that we added still uses a promise,
-while the rest of the application is using async/await.
-This needs to be fixed:
+while the rest of the application is using the newer JavaScript form of async/await
+(it is just another syntax for a promise).
+We can clean that up:
 
 1. In the event listener locate the call to *createAuth0Client({...}).then(...*.
 1. Change the call to await a return of the client object instead of the promise:
@@ -329,6 +357,10 @@ This needs to be fixed:
 1. Shift the remaining lines that were enclosed in the *then* left to balance the indentation.
 1. Start the application and test it.
 1. Logout and stop the application.
+
+<br>
+
+![Stop](./.assets/Stop.png) Congratulations, you have completed this task!
 
 ## License
 

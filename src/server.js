@@ -73,12 +73,13 @@ function resolveServiceAddresses() {
 }
 
 function rewriteEnvironmentVariables(apiURL) {
-    const auth0Domain = process.env.AUTH0_DOMAIN;
-    const auth0ClientId = process.env.AUTH0_CLIENT_ID;
-    const appServicePort = process.env.APP_SERVICE_PORT;
-    const apiServicePort = process.env.API_SERVICE_PORT;
-    const apiAudience = process.env.API_AUDIENCE;
-    fs.writeFile('.env', 
+    if (apiURL != process.env.API_URL) {
+        const auth0Domain = process.env.AUTH0_DOMAIN;
+        const auth0ClientId = process.env.AUTH0_CLIENT_ID;
+        const appServicePort = process.env.APP_SERVICE_PORT;
+        const apiServicePort = process.env.API_SERVICE_PORT;
+        const apiAudience = process.env.API_AUDIENCE;
+        fs.writeFile('.env', 
 `AUTH0_DOMAIN=${auth0Domain}
 AUTH0_CLIENT_ID=${auth0ClientId}
 APP_SERVICE_PORT=${appServicePort}
@@ -90,6 +91,7 @@ API_URL=${apiURL}`,
                 console.log('Failed to rewrite environment variables');
             }
         });
+    }
 }
 
 function listen(app, apiURL, appEndpoint) {
